@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero · Massimo Hosseini</title>
+<style>
+  :root{
+    --primary:#FFCF5A;--secondary:#FBE19F;--accent:#FFB020;--bg:#FFFBF2;
+    --card:#FFFFFF;--btn:#FFB020;--btn-hover:#E89600;--btn-text:#1F1F1F;
+    --text:#1F1F1F;--muted:#6B6255;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{background:var(--bg);}
+  body{
+    font-family:'Georgia','Times New Roman',serif;color:var(--text);
+    line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  ::selection{background:var(--primary);color:var(--text);}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+  h1{font-family:'Helvetica Neue',Arial,sans-serif;}
+  .serif{font-family:'Georgia','Times New Roman',serif;}
+
+  .btn{
+    display:inline-block;background:var(--btn);color:var(--btn-text);
+    font-family:'Helvetica Neue',Arial,sans-serif;font-weight:700;font-size:.95rem;
+    letter-spacing:.01em;padding:16px 34px;border-radius:50px;text-decoration:none;
+    transition:background .25s ease, transform .25s ease;border:none;cursor:pointer;
+  }
+  .btn:hover{background:var(--btn-hover);transform:translateY(-2px);}
+
+  .portrait{
+    aspect-ratio:4/5;border-radius:140px 140px 28px 28px;overflow:hidden;
+    box-shadow:0 24px 60px -30px rgba(31,31,31,.55);
+  }
+  .portrait img{width:100%;height:100%;object-fit:cover;display:block;}
+
+  .hero{position:relative;padding:84px 0 96px;overflow:hidden;}
+  .hero-bg{
+    position:absolute;inset:0;z-index:0;
+    background:radial-gradient(circle at 78% 28%,rgba(255,207,90,.55),transparent 45%),
+               radial-gradient(circle at 18% 80%,rgba(251,225,159,.5),transparent 50%);
+  }
+  .hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center;}
+  .hero h4{font-family:'Helvetica Neue',Arial,sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:26px;line-height:1.7;}
+  .hero h1{font-size:clamp(2.6rem,5.5vw,4rem);font-weight:300;line-height:1.08;letter-spacing:-.01em;margin-bottom:28px;}
+  .hero h1 em{font-style:italic;color:var(--accent);}
+  .hero .sub{font-size:1.12rem;color:var(--text);max-width:520px;margin-bottom:18px;}
+  .hero .accentline{font-size:1.18rem;color:var(--muted);max-width:520px;margin-bottom:38px;font-style:italic;}
+  .hero-quote{position:relative;z-index:2;margin-top:72px;border-top:1px solid rgba(255,176,32,.25);padding-top:40px;}
+  .hero-quote p{font-size:clamp(1.4rem,3vw,2rem);font-weight:300;line-height:1.4;max-width:840px;}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease;}
+  .reveal.in{opacity:1;transform:none;}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none;}}
+
+  @media (max-width:860px){
+    .hero-grid{grid-template-columns:1fr;gap:40px;}
+    .portrait{max-width:380px;margin:0 auto;width:100%;}
+    .hero{padding:60px 0 70px;}
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="reveal">
+        <h4>Massimo Hosseini · Wirtschaftspsychologe &amp; Transformationsbegleiter · Hamburg</h4>
+        <h1>Du spürst es bevor<br>du es <em>verstehst.</em></h1>
+        <p class="sub">Massimo Hosseini ist Wirtschaftspsychologe, Visionär und Transformationsbegleiter. Aber das ist nicht warum Menschen zu ihm kommen.</p>
+        <p class="accentline">Sie kommen, weil sie in seiner Nähe zu sich selbst finden.</p>
+        <a href="https://massihpsychology.orbit-os.com/kontakt" class="btn">Entdecke seine Welt</a>
+      </div>
+      <div class="reveal">
+        <div class="portrait">
+          <img src="bilder/portrait-massimo.jpg" alt="Massimo Hosseini">
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-quote reveal">
+      <p class="serif">Es gibt Begegnungen, die alles verändern. Plötzlich wirst du ruhiger. Klarer. Mehr du selbst. Als würdest du dich an etwas erinnern, das du schon immer wusstest.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.14});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+
+  // Höhe an Eltern-Seite melden (auto-resize iframe)
+  function reportHeight(){parent.postMessage({type:'iframe-height',name:'hero',height:document.body.scrollHeight},'*');}
+  window.addEventListener('load',reportHeight);
+  window.addEventListener('resize',reportHeight);
+  new ResizeObserver(reportHeight).observe(document.body);
+</script>
+
+</body>
+</html>
